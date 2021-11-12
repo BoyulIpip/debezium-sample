@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.25.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: connect-debezium
+  name: connect-debezium
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: connect-debezium
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.25.0 (HEAD)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: connect-debezium
+    spec:
+      containers:
+        - env:
+            - name: BOOTSTRAP_SERVERS
+              value: broker:9092
+            - name: CONFIG_STORAGE_TOPIC
+              value: docker-connect-debezium-configs
+            - name: GROUP_ID
+              value: connect-debezium
+            - name: OFFSET_STORAGE_TOPIC
+              value: docker-connect-debezium-offsets
+            - name: STATUS_STORAGE_TOPIC
+              value: docker-connect-debezium-status
+          image: debezium/connect:1.2
+          name: connect-debezium
+          ports:
+            - containerPort: 8083
+          resources: {}
+      restartPolicy: Always
+status: {}

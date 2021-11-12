@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.25.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: kafdrop
+  name: kafdrop
+spec:
+  containers:
+    - env:
+        - name: KAFKA_BROKERCONNECT
+          value: broker:9092
+      image: obsidiandynamics/kafdrop:latest
+      name: kafdrop
+      ports:
+        - containerPort: 9000
+      resources: {}
+  restartPolicy: Never
+status: {}
