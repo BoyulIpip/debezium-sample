@@ -29,6 +29,10 @@ public class Configuration {
     props.setProperty("database.user", databaseConfiguration.getUsername());
     props.setProperty("database.password", databaseConfiguration.getPassword());
     props.setProperty("database.dbname", databaseConfiguration.getDatabase());
+//    props.setProperty("transforms","filter");
+//    props.setProperty("transforms.filter.type","io.debezium.embedded.ExampleFilterTransform");
+//    props.setProperty("transforms.filter.language","jsr223.groovy");
+//    props.setProperty("transforms.filter.condition","value.op == 'u' || value.op == 'c'");
     props.setProperty("slot.name", "tst_slot_name");
     props.setProperty("database.server.name", "my-app-connector");
     props.setProperty("database.history",

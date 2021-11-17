@@ -8,6 +8,11 @@
             <set />
           </value>
         </entry>
+        <entry key="/GridCellEditorTextField">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../debezium-embedded-sample/build.gradle">
           <value>
             <set />
@@ -44,6 +49,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../debezium-embedded-sample/src/main/java/com/example/debeziumsample/service/DebeziumListener.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../debezium-embedded-sample/src/main/java/com/example/debeziumsample/service/RecordFilter.java">
           <value>
             <set />
           </value>

@@ -30,7 +30,7 @@ public class DebeziumListener implements InitializingBean {
   ) {
     this.debeziumEngine = DebeziumEngine.create(ChangeEventFormat.of(Connect.class))
         .using(debeziumConfig)
-        .notifying(val -> handler.handle(val))
+        .notifying(val->handler.handle(val))
         .build();
   }
 
