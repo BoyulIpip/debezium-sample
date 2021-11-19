@@ -9,8 +9,6 @@ services:
     volumes:
       - ../sql/init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
-        #      - POSTGRES_HOST_AUTH_METHOD=trust
-        #      or
       - POSTGRES_DB=test
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -56,27 +54,12 @@ services:
       CONFLUENT_METRICS_ENABLE: 'false'
       KAFKA_CONFLUENT_LICENSE_TOPIC_REPLICATION_FACTOR: 1
 
-  schema-registry:
-    image: confluentinc/cp-schema-registry:5.5.1
-    hostname: schema-registry
-    container_name: schema-registry
-    depends_on:
-      - zookeeper
-      - broker
-    ports:
-      - "8081:8081"
-    environment:
-      SCHEMA_REGISTRY_HOST_NAME: schema-registry
-      SCHEMA_REGISTRY_LISTENERS: 'http://0.0.0.0:8081'
-      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: 'PLAINTEXT://broker:9092'
-
   connect-debezium:
     image: debezium/connect:1.2
     container_name: connect-debezium
     depends_on:
       - broker
       - db
-      - schema-registry
     ports:
       - 8083:8083
     environment:
@@ -85,9 +68,4 @@ services:
       CONFIG_STORAGE_TOPIC: docker-connect-debezium-configs
       OFFSET_STORAGE_TOPIC: docker-connect-debezium-offsets
       STATUS_STORAGE_TOPIC: docker-connect-debezium-status
-      KEY_CONVERTER: io.confluent.connect.avro.AvroConverter
-      VALUE_CONVERTER: io.confluent.connect.avro.AvroConverter
-      CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL: http://schema-registry:8081
-      CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL: http://schema-registry:8081
-    volumes:
-      - ${PWD}/scripts:/scripts
+      ENABLE_DEBEZIUM_SCRIPTING: 'true'
